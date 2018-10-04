@@ -31,7 +31,7 @@ public class NewJFrame extends javax.swing.JFrame {
     String ki;
     Connection conn = null;
     Dictionary dic= new Dictionary();
-    SynthesiserV2 synthesizer = new SynthesiserV2("AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw");
+    SynthesiserV2 synthesizer = new SynthesiserV2();
     public NewJFrame() {
         initComponents();
         initData();
