@@ -82,7 +82,6 @@ public class Trans extends javax.swing.JFrame {
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setOpaque(true);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/055824786958bce.jpeg"))); // NOI18N
         jLabel2.setOpaque(true);
         jScrollPane3.setViewportView(jLabel2);
 
@@ -148,10 +147,10 @@ public class Trans extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 80, 40));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/055824786958bce.jpeg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/Image/055824786958bce.jpeg"))); // NOI18N
         jScrollPane7.setViewportView(jLabel3);
 
-        getContentPane().add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 440));
+        getContentPane().add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
