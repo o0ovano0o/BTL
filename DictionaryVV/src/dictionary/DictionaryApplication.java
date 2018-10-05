@@ -111,7 +111,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English - Vietnamese", "Vietnamese - English" }));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/Volume3.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Volume3_2.png"))); // NOI18N
         jButton1.setToolTipText("Pronunciation");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +119,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
             }
         });
 
-        bEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/edit.png"))); // NOI18N
+        bEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/edit.png"))); // NOI18N
         bEdit.setToolTipText("Edit word");
         bEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +127,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
             }
         });
 
-        bAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/add.png"))); // NOI18N
+        bAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add.png"))); // NOI18N
         bAdd.setToolTipText("Add word");
         bAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +135,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
             }
         });
 
-        bDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/delete.png"))); // NOI18N
+        bDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/delete.png"))); // NOI18N
         bDelete.setToolTipText("Delete word ");
         bDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +143,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
             }
         });
 
-        bTranslate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/traanslate.png"))); // NOI18N
+        bTranslate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/traanslate.png"))); // NOI18N
         bTranslate.setToolTipText("Translate ");
         bTranslate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

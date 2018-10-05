@@ -5,10 +5,7 @@
  */
 package dictionary;
 
-/**
- *
- * @author Administrator
- */
+
 public class infoCOCO extends javax.swing.JFrame {
 
     /**
@@ -76,7 +73,7 @@ public class infoCOCO extends javax.swing.JFrame {
         jLabel2.setText("Dictionary COCO");
         jLabel2.setOpaque(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dictionary/Image/vt.JPG"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/vt.JPG"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
