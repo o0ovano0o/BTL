@@ -5,6 +5,10 @@
  */
 package dictionary;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -106,13 +110,32 @@ public class add extends javax.swing.JFrame {
         // TODO add your handling code here:
         eng=jTextField1.getText();
         viet=jTextArea1.getText();
+        DTB dtb = new DTB();
+        Word ev= new Word();
+        ev.spelling="";
+        ResultSet rs=dtb.getword(eng);
+        try {
+            while(rs.next()){
+                ev.spelling=rs.getString("word");
+                ev.explain= rs.getString("detail");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(add.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(eng.isEmpty()||viet.isEmpty()){
             JOptionPane.showMessageDialog(null,"Bạn chưa nhập hết thông tin","Lỗi",JOptionPane.ERROR_MESSAGE);
+       
             jTextField1.requestFocus();
             jTextArea1.requestFocus();
         }
-         else{
+        else if(!ev.spelling.isEmpty())
+        { JOptionPane.showMessageDialog(null,"Từ nãy đã có trong Từ điển ","Cảnh báo",JOptionPane.WARNING_MESSAGE);
+          jTextField1.requestFocus();
+           jTextArea1.requestFocus();
+        }
+        else{
             DTB conect = new DTB();
+            conect.setId();
             conect.insert(eng, viet);
             JOptionPane.showMessageDialog(null," Thêm Thành công", "Thông báo",JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);

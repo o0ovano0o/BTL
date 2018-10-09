@@ -5,6 +5,8 @@
  */
 package dictionary;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,13 +20,18 @@ public class edit extends javax.swing.JFrame {
      * Creates new form edit
      */
     String vnew,engnew;
-    private int id;
+    DTB dtb = new DTB();
+    Word word=new Word();
     public edit() {
+        
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public void setID(int id){
-        this.id=id;
+    public void setWord(Word a){
+        word.id=a.id;
+        word.spelling=a.spelling;
+        word.explain=a.explain;
+        
     }
 
     /**
@@ -38,6 +45,7 @@ public class edit extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -45,9 +53,13 @@ public class edit extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setText("Từ cũ");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/589091614-612x612.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sửa từ");
@@ -59,13 +71,14 @@ public class edit extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 39, 392, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 39, 310, -1));
 
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 102, 390, 141));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 310, 120));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -95,8 +108,24 @@ public class edit extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/589091614-612x612.jpg"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, 0, 410, 300));
+        jButton3.setText("Từ cũ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, -1, -1));
+
+        jButton4.setText("Nghĩa cũ");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/589091614-612x612.jpg"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -105,28 +134,48 @@ public class edit extends javax.swing.JFrame {
         // TODO add your handling code here:
         engnew=jTextField2.getText();
         vnew=jTextArea1.getText();
-        if(vnew.isEmpty()||engnew.isEmpty()||id==0){
+        if(vnew.isEmpty()||engnew.isEmpty()||word.id==0){
             JOptionPane.showMessageDialog(null,"Bạn chưa nhập hết thông tin hoặc chưa chọn từ để sửa","Lỗi",JOptionPane.ERROR_MESSAGE);
             jTextArea1.requestFocus();
-            System.out.println(id);
+            
         }
         else{
             DTB connect = new DTB();
-            connect.update(id,jTextField2.getText(),jTextArea1.getText());
+            connect.update(word.id,jTextField2.getText(),jTextArea1.getText());
             JOptionPane.showMessageDialog(null, "Sửa Thành công", "Thông báo",JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
         }
        
     }//GEN-LAST:event_jButton1ActionPerformed
-
+            
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        jTextField2.setText(word.spelling);
+         if(word.id==0){
+            JOptionPane.showMessageDialog(null,"Bạn chưa nhập hết thông tin hoặc chưa chọn từ để sửa","Lỗi",JOptionPane.ERROR_MESSAGE);
+            jTextArea1.requestFocus();
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        jTextArea1.setText(word.explain);
+         if(word.id==0){
+            JOptionPane.showMessageDialog(null,"Bạn chưa nhập hết thông tin hoặc chưa chọn từ để sửa","Lỗi",JOptionPane.ERROR_MESSAGE);
+            jTextArea1.requestFocus();
+            
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,10 +215,13 @@ public class edit extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;

@@ -7,11 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class DTB {
     Connection conn = null;
-    int id=139244;
-    private Connection connect() {
-      try {
+    int id;
+    public Connection connect() {
+      try {     
                 Class.forName("org.sqlite.JDBC");
                 String url = "jdbc:sqlite:dictionaries.db";
                 conn = DriverManager.getConnection(url);
@@ -20,17 +22,35 @@ public class DTB {
             }
         return conn;
     }
-     public void insert(String eng, String viet) {
-        String sql = "INSERT INTO tbl_edict(idx,word,detail) VALUES(?,?,?)";
- 
+     public  void  setId(){
+        String sql="SELECT MAX(idx) FROM tbl_edict";
+        int idmax=0;
+        ResultSet rs=null;
+        try (Connection conn = this.connect()){    
+             rs  = this.excuteQuery(sql);
+            idmax=rs.getInt("MAX(idx)");
+            conn.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        this.id=idmax+1;
+    }
+     public void insert(String eng, String viet){
+       String sql = "INSERT INTO tbl_edict(idx,word,detail) VALUES("+(id++) +",'"+eng+"','"+viet+"')";
+
         try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1,id++);
-            pstmt.setString(2, eng);
-            pstmt.setString(3, viet);
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+           
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DTB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
      public void update(int id, String word, String detail) {
@@ -40,12 +60,9 @@ public class DTB {
  
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
- 
-            // set the corresponding param
             pstmt.setString(1, word);
             pstmt.setString(2, detail);
             pstmt.setInt(3, id);
-            // update 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -56,10 +73,7 @@ public class DTB {
  
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
- 
-            // set the corresponding param
             pstmt.setString(1, word);
-            // execute the delete statement
             pstmt.executeUpdate();
  
         } catch (SQLException e) {
@@ -70,14 +84,8 @@ public class DTB {
         String sql = "SELECT * "+ "FROM tbl_edict WHERE word = '"+ word + "'";
         ResultSet rs=null;
         try (Connection conn = this.connect()){
-//             PreparedStatement pstmt  = conn.prepareStatement(sql)){
-//            
-//            // set the value
-//            pstmt.setString(1,word);
-//            //
              rs  = this.excuteQuery(sql);
-            
-            
+          
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -112,5 +120,35 @@ public class DTB {
         } 
         return res;
     }
+    public Word getData(int idd){
+       String sql = "SELECT * "+ "FROM tbl_edict WHERE idx = '"+ idd+ "'";
+        ResultSet rs=null;
+        Word ev=new Word();
+        try (Connection conn = this.connect()){
+//             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+//            
+//            // set the value
+//            pstmt.setString(1,word);
+//            //
+             rs  = this.excuteQuery(sql);
+            
+             while(rs.next()){
+                 ev.spelling=rs.getString("word");
+                 ev.explain= rs.getString("detail");
+             }
+  
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ev;
+    }
     
+    public static void main(String[] args) {
+//        DTB dtb = new DTB();
+//       dtb.setId();
+//        dtb.insert("okk1", "ổn");
+//         dtb.insert("okk2", "ổn");
+//        
+  }
 }
